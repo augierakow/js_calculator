@@ -1,7 +1,7 @@
 class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
         this.previousOperandTextElement = previousOperandTextElement
-        this.currentOperandTextElement= currentOperandTextElement
+        this.currentOperandTextElement = currentOperandTextElement
         this.clear()
     }
 
@@ -13,7 +13,6 @@ class Calculator {
 
     delete() {
         this.currentOperand = this.currentOperand.toString().slice(0, -1)
-        //^^ Need semicolon after "-1)" ?
     }
 
     appendNumber(number) {
@@ -23,12 +22,12 @@ class Calculator {
 
     chooseOperation(operation) {
         if (this.currentOperand === '') return
-        if (this.previousOperand !=== '') {
+        if (this.previousOperand !== '') {
             this.compute()
         }
-        this.operation = operatation
-        this.previousOperand= this.currentOperand
-        this.currentOperand= ''
+        this.operation = operation
+        this.previousOperand = this.currentOperand
+        this.currentOperand = ''
     }
 
     compute() {
@@ -52,36 +51,39 @@ class Calculator {
             default:
                 return
         }
-        this.currentOperand = computationthis.operation = undefined
+        this.currentOperand = computation
+        this.operation = undefined
         this.previousOperand = ''
     }
 
     getDisplayNumber(number) {
         const stringNumber = number.toString()
         const integerDigits = parseFloat(stringNumber.split('.')[0])
-        const decimalDigits = stringNumber.split('.')[1])
+        const decimalDigits = stringNumber.split('.')[1]
         let integerDisplay
         if (isNaN(integerDigits)) {
-            integerDisplay = ''
+          integerDisplay = ''
         } else {
-            integerDisplay = integerDigits.toLocaleString('en', {
-            maximumFractionDigits: 0 })
+          integerDisplay = integerDigits.toLocaleString('en', {
+          maximumFractionDigits: 0 })
         }
         if (decimalDigits != null) {
-            return '${integerDisplay}.${decimalDigits}'
-        } else {
+            return `${integerDisplay}.${decimalDigits}`
+        }   else {
             return integerDisplay
         }
     }
-
     updateDisplay() {
         this.currentOperandTextElement.innerText = 
-          this.getDisplayNumber(currentOperand)
+          this.getDisplayNumber(this.currentOperand)
         if (this.operation != null) {
-            this.currentOperandTextElement.innerText = 
-              '${this.previousOperand} $(this.operation}' // Need something betwee $'s?  Or 'operation' should be 'operations' ?  
+            this.previousOperandTextElement.innerText = 
+             `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`  
         } else {
-            this.previousOperandTextElement.innerText = ''
+          this.previousOperandTextElement.innerText = ''
+
+        // ^^ Why is this.previousOperatndTextElement.innerText being set to this whole string?
+
         }
     }
 }
@@ -89,7 +91,7 @@ class Calculator {
 
 const numberButtons = document.querySelectorAll('[data-number]')
 const operationButtons = document.querySelectorAll('[data-operation]')
-const operationButtons = document.querySelector('[data-equals]')
+const equalsButton = document.querySelector('[data-equals]')
 const deleteButton = document.querySelector('[data-delete]')
 const allClearButton = document.querySelector('[data-all-clear]')
 const previousOperandTextElement = document.querySelector('[data-previous-operand]')
@@ -106,7 +108,7 @@ numberButtons.forEach(button => {
 
 operationButtons.forEach(button => {
     button.addEventListener('click', () => {
-        calculator.appendNumber(button.innerText)
+        calculator.chooseOperation(button.innerText)
         calculator.updateDisplay()
     })
 })

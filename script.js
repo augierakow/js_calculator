@@ -1,8 +1,9 @@
+// Declare the Calculator [display]'s structure, content, and clear function.
 class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
         this.previousOperandTextElement = previousOperandTextElement
         this.currentOperandTextElement = currentOperandTextElement
-        this.clear()
+        this.clear() // Why buttons stop working if delete this line?
     }
 
     clear() {
@@ -25,7 +26,7 @@ class Calculator {
         if (this.previousOperand !== '') {
             this.compute()
         }
-        this.operation = operation
+        this.operation = operation // Where is the 2nd 'operation' in this line defined?
         this.previousOperand = this.currentOperand
         this.currentOperand = ''
     }

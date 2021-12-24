@@ -8,7 +8,7 @@ class Calculator {
     clear() {
         this.currentOperand = ''
         this.previousOperand = ''
-        this.operaton = undefined
+        this.operation = undefined
     }
 
     delete() {
@@ -81,9 +81,6 @@ class Calculator {
              `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`  
         } else {
           this.previousOperandTextElement.innerText = ''
-
-        // ^^ Why is this.previousOperatndTextElement.innerText being set to this whole string?
-
         }
     }
 }
